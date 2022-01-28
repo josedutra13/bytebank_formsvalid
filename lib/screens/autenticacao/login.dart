@@ -1,7 +1,10 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:bytebank_formsvalid/components/mensagem.dart';
+import 'package:bytebank_formsvalid/screens/autenticacao/register.dart';
 import 'package:bytebank_formsvalid/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flux_validator_dart/flux_validator_dart.dart';
 
 class Login extends StatelessWidget {
   final TextEditingController cpf_controller = TextEditingController();
@@ -61,13 +64,8 @@ class Login extends StatelessWidget {
             height: 20,
           ),
           TextFormField(
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Digite o CPF!';
-              } else if (value.length < 14) {
-                return 'CPF invalido!';
-              }
-            },
+            validator: (value) => Validator.cpf(value) ? 'CPF invalido' : null,
+            controller: cpf_controller,
             inputFormatters: [
               // Para pegar apenas numeros
               FilteringTextInputFormatter.digitsOnly,
@@ -86,10 +84,15 @@ class Login extends StatelessWidget {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Digite sua senha!';
-              } else if (value.length < 15) {
-                return 'Senha invalida!';
+              }
+              // else if (value.length < 15) {
+              //   return 'Senha invalida!';
+              // }
+              else {
+                return null;
               }
             },
+            controller: senha_controller,
             decoration: InputDecoration(
                 labelText: 'Senha',
                 labelStyle: TextStyle(color: Theme.of(context).primaryColor),
@@ -108,11 +111,19 @@ class Login extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Dashboard()),
-                      (route) => false);
+                  if (cpf_controller.text == '111.111.111-11' &&
+                      senha_controller.text == 'abc123') {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Dashboard()),
+                        (route) => false);
+                  } else {
+                    emitirAlerta(
+                        context: context,
+                        title: 'ALERTA',
+                        content: 'CPF ou Senha incorretos!');
+                  }
                 }
               },
               style: ButtonStyle(
@@ -141,7 +152,10 @@ class Login extends StatelessWidget {
             height: 15,
           ),
           OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Register()));
+              },
               style: ButtonStyle(
                   side: MaterialStateProperty.all<BorderSide>(BorderSide(
                       width: 2,

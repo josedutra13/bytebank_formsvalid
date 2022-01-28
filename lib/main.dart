@@ -1,3 +1,4 @@
+import 'package:bytebank_formsvalid/models/cliente.dart';
 import 'package:bytebank_formsvalid/screens/autenticacao/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(
           create: (context) => Saldo(0),
         ),
-        ChangeNotifierProvider(create: (context) => Transferencias())
+        ChangeNotifierProvider(create: (context) => Transferencias()),
+        ChangeNotifierProvider(create: (context) => Cliente())
       ],
       child: const BytebankApp(),
     ));
@@ -24,12 +26,14 @@ class BytebankApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.green[900],
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blueAccent[700],
+        buttonTheme: const ButtonThemeData(
+          buttonColor: Color.fromRGBO(71, 161, 56, 1),
           textTheme: ButtonTextTheme.primary,
         ),
-        colorScheme: ColorScheme.fromSwatch()
-            .copyWith(secondary: const Color.fromRGBO(71, 161, 56, 1)),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.green[900],
+            secondary: const Color.fromRGBO(71, 161, 56, 1),
+            onSurface: Colors.green[900]),
       ),
       home: Login(),
     );
