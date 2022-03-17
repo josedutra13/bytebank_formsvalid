@@ -84,11 +84,7 @@ class Login extends StatelessWidget {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Digite sua senha!';
-              }
-              // else if (value.length < 15) {
-              //   return 'Senha invalida!';
-              // }
-              else {
+              } else {
                 return null;
               }
             },

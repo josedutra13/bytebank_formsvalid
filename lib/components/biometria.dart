@@ -17,8 +17,8 @@ class Biometria extends StatelessWidget {
         if (snapshot.data == true) {
           return Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+              const Padding(
+                padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: Text(
                   'Detectamos que você tem sensor biométrico no seu celular, deseja auntenticar com biometria?',
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -60,6 +60,6 @@ class Biometria extends StatelessWidget {
             'Por favor, autentique-se via biometria para acessar o app do Bytebank',
         useErrorDialogs: true,
         biometricOnly: true);
-    Provider.of<Cliente>(context).biometria = autenticacao;
+    Provider.of<Cliente>(context, listen: false).biometria = autenticacao;
   }
 }

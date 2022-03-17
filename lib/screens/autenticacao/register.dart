@@ -170,6 +170,9 @@ class Register extends StatelessWidget {
                           TextStyle(color: Theme.of(context).primaryColor),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
                               color: Theme.of(context).primaryColor))),
                 ),
                 TextFormField(
@@ -407,6 +410,7 @@ class Register extends StatelessWidget {
                       return null;
                     }
                   },
+                  obscureText: true,
                   decoration: InputDecoration(
                       labelText: 'Confirmar Senha',
                       labelStyle:
